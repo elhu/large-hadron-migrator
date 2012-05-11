@@ -29,7 +29,8 @@ module Lhm
         connection.execute(tagged(statement))
       end
     rescue ActiveRecord::StatementInvalid => e
-      error e.message
+      STDERR.puts e.message
+      sql(statements)
     end
 
     def update(statements)
@@ -37,7 +38,8 @@ module Lhm
         memo += connection.update(tagged(statement))
       end
     rescue ActiveRecord::StatementInvalid => e
-      error e.message
+      STDERR.puts e.message
+      update(statements)
     end
 
     def version_string
